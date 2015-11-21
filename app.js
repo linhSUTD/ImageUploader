@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
+var mongoose = require('mongoose');
 
 var api = require('./routes/api');
 
@@ -26,6 +27,12 @@ http.IncomingMessage.prototype.ensureParam = function(name, type, optional)
 }
 
 var app = express();
+
+mongoose.connect('mongodb://127.0.0.1:27017/imageRender');
+
+mongoose.connection.on('error', function() {
+  console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
+});
 
 app.use(logger('dev'));
 app.use(bodyParser.json());

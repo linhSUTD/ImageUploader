@@ -6,6 +6,7 @@ var router = express.Router();
 var Utils = require('../utils').Utils;
 var cp = require('child_process');
 var fs = require('fs');
+var Image = require('../models/image');
 
 
 router.get('/images/upload', function(req, res, next) {
@@ -57,6 +58,40 @@ router.get('/images/download/:id', function (req, res, next){
 		}
 	})
 
+});
+
+router.get('/images/getBackgrounds', function (req, res, next) {
+	Image.find({}, function (err, images) {
+		if (err) {
+			return res.status(404).send({message: 'Fail to load background images!'});
+		}
+
+		return res.json(200, {
+			backgroundList: images
+		})
+	})
+});
+
+router.get('/images/addBackGrounds', function (req, res, next) {
+
+	var image_1 = new Image({
+		name: 'Background_1',
+		description: 'Background_1',
+		path: 'images/bg2.jpg'
+	});
+
+	image_1.save(function(err) {
+		if (err) {
+			return res.status(404).send({message: 'Fail to add a new background image!'});
+		}
+
+		return res.json(200, {
+			message: 'Success to add a new background image!'
+		})
+	})
+
 })
+
+
 
 module.exports = router;
