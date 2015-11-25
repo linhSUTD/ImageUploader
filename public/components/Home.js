@@ -83,14 +83,11 @@ class Home extends React.Component {
 						:
 
 						<div className='row'>
-							<p className='text-center bold'>Click Image!</p>
+							<div className='col-xs-6 col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-3'>
 
-							<div className='col-xs-3 col-sm-3 col-md-3 text-center'>
-							</div>
-
-							<div className='col-xs-6 col-sm-6 col-md-6'>
+								<p className='text-center bold'>Click Image!</p>
 								<a href={this.state.downloadLink}>
-									<div className='preview'>
+									<div className='thumbnail'>
 										<img src={config.SERVER_URL + this.state.preview_image} />
 									</div>
 								</a>
