@@ -14,18 +14,20 @@ router.get('/images/upload', function(req, res, next) {
 	try
 	{
 		var fb_id = req.ensureParam("fb_id", "string");
+		var background = req.ensureParam("background", "string");
 	}
 	catch (e)
 	{
 		return res.json(404, {error: e});
 	}
 
-	console.log(fb_id);
+	console.log("dmdmd", fb_id);
+	console.log(background);
 
 	var python = cp.spawn(
 		'python',
 		// second argument is array of parameters, e.g.:
-		[Utils.PYTHON_SCRIPT, fb_id], {stdio: [null, null, null, 'ipc']}
+		[Utils.PYTHON_SCRIPT, fb_id, background], {stdio: [null, null, null, 'ipc']}
 	);
 
 	python.stdout.pipe(process.stdout);
@@ -75,9 +77,9 @@ router.get('/images/getBackgrounds', function (req, res, next) {
 router.get('/images/addBackGrounds', function (req, res, next) {
 
 	var image_1 = new Image({
-		name: 'Background_1',
-		description: 'Background_1',
-		path: 'images/bg2.jpg'
+		name: 'Background_4',
+		description: 'Background_4',
+		path: 'images/bg5.jpg'
 	});
 
 	image_1.save(function(err) {

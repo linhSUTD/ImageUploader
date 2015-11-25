@@ -8,9 +8,13 @@ import datetime
 # print 'Tep'
 
 fb_id = sys.argv[1]
+
+# haveBackGround = sys.argv[2]
+
 # print type(fb_id)
-fore_filename = 'public/images/' + fb_id + '_in.jpg' 
-back_filename = 'public/images/' + 'bg2.jpg'
+fore_filename = 'public/images/' + fb_id + '_in.jpg'
+# back_filename = 'public/images/' + 'bg2.jpg'
+back_filename = 'public/' + sys.argv[2]
 print fore_filename
 print back_filename
 img_url = "http://graph.facebook.com/" + fb_id + "/picture?width = 400&height=400"
@@ -26,9 +30,9 @@ im_res = Image.blend(fore_im,back_im,0.4)
 out_filename = 'public/images/' + fb_id + '_out.jpg'
 
 im_res.save(out_filename)
-print out_filename  
+print out_filename
 
-	
+
 # fb_id = "1084755001548584"
 
 
@@ -37,7 +41,7 @@ print out_filename
 # 	wpercent = (basewidth/float(img.size[0]))
 # 	hsize = int((float(img.size[1])*float(wpercent)))
 # 	img = img.resize((basewidth,hsize), PIL.Image.ANTIALIAS)
-# 	return img 
+# 	return img
 
 # def mix_imgs(img1, img2):
 # 	im1 = img1.load()
