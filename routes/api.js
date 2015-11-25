@@ -77,21 +77,36 @@ router.get('/images/getBackgrounds', function (req, res, next) {
 router.get('/images/addBackGrounds', function (req, res, next) {
 
 	var image_1 = new Image({
+		name: 'Background_1',
+		description: 'Background_1',
+		path: 'images/bg2.jpg'
+	});
+
+	var image_2 = new Image({
+		name: 'Background_2',
+		description: 'Background_2',
+		path: 'images/bg3.jpg'
+	});
+
+	var image_3 = new Image({
+		name: 'Background_3',
+		description: 'Background_3',
+		path: 'images/bg4.jpg'
+	});
+
+	var image_4 = new Image({
 		name: 'Background_4',
 		description: 'Background_4',
 		path: 'images/bg5.jpg'
 	});
 
-	image_1.save(function(err) {
-		if (err) {
-			return res.status(404).send({message: 'Fail to add a new background image!'});
-		}
-
-		return res.json(200, {
+	image_1.save();
+	image_2.save();
+	image_3.save();
+	image_4.save();
+	return res.json(200, {
 			message: 'Success to add a new background image!'
 		})
-	})
-
 })
 
 

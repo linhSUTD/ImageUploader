@@ -13,4 +13,4 @@ im = Image.open(fn)
 (w, h) = im.size
 (x0, y0) = (w/2, h/2)
 h2 = min(x0, y0)
-im.crop((x0 - h2, y0 - h2, x0 + h2, y0+ h2)).resize((500,500)).save(crop_fn)
+im.crop((x0 - h2, y0 - h2, x0 + h2, y0+ h2)).resize((500,500)).save(fn)

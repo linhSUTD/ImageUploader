@@ -6,6 +6,12 @@ from PIL import Image
 import datetime
 
 # print 'Tep'
+def crop_img(im):
+	
+	(w, h) = im.size
+	(x0, y0) = (w/2, h/2)
+	h2 = min(x0, y0)
+	return im.crop((x0 - h2, y0 - h2, x0 + h2, y0+ h2)).resize((500,500))
 
 fb_id = sys.argv[1]
 
@@ -22,8 +28,10 @@ urllib.urlretrieve(img_url, fore_filename)
 
 fore_im = Image.open(fore_filename)
 back_im = Image.open(back_filename)
+
 fore_im = fore_im.resize((500, 500))
-back_im = back_im.resize((500, 500))
+# back_im = back_im.resize((500, 500))
+back_im = crop_img(back_im)
 
 im_res = Image.blend(fore_im,back_im,0.4)
 
