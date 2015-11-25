@@ -19,6 +19,7 @@ class NavBar extends React.Component {
 
 	componentDidMount () {
 		var socket = io.connect();
+		NavBarStore.listen(this.onChange);
 		socket.on('onlineUsers', function (data) {
 			NavBarActions.updateOnlineUsers(data);
 		})
@@ -29,7 +30,7 @@ class NavBar extends React.Component {
 			<nav className='navbar navbar-default navbar-static-top'>
 				<div className='navbar-header'>
 					<Link to='/' className='navbar-brand'>
-						AVATAR
+						ONLINE
 						<span className='badge badge-up badge-danger'>{this.state.onlineUsers}</span>
 					</Link>
 				</div>

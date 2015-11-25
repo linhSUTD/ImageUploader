@@ -83,6 +83,8 @@ class Home extends React.Component {
 						:
 
 						<div className='row'>
+							<p className='text-center bold'>Click Image!</p>
+
 							<div className='col-xs-3 col-sm-3 col-md-3 text-center'>
 							</div>
 
