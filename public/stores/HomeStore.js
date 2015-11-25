@@ -8,10 +8,12 @@ class HomeStore {
 	constructor () {
 		this.bindActions(HomeActions);
 		this.currentStep = 2;
-		this.currentBackground = 0;
-		this.selectedBackground = 0;
+		this.selectedBackground = null;
 		this.backgroundList = [];
-
+		this.currentBackground = null;
+		this.selectedImage = "http://graph.facebook.com/1359217054097582/picture?width=400&height=400";
+		this.loadingPage = false;
+		this.downloadLink = null;
 	}
 
 	onQueryBackgroundListFail (err) {
@@ -19,15 +21,70 @@ class HomeStore {
 	}
 
 	onQueryBackgroundListSuccess (list) {
-		console.log(list);
 		list.map((background) => {
 			background.isSelected = false;
-			if (this.selectedBackground == background._id) {
+			if (this.selectedBackground && this.selectedBackground._id == background._id) {
 				background.isSelected = true;
 			}
 		})
 
 		this.backgroundList = list;
+
+		if (this.backgroundList && this.backgroundList.length) {
+			this.currentBackground = 0;
+		}
+	}
+
+
+	onSetSelectedBackground (selected) {
+		this.backgroundList.map((background) => {
+			if (background._id != selected._id) {
+				background.isSelected = false;
+			} else {
+				background.isSelected = true;
+				this.selectedBackground = selected;
+			}
+		})
+	}
+
+	onGetNextBackground () {
+		if (this.currentBackground == this.backgroundList.length - 1) {
+			this.currentBackground = 0;
+		} else {
+			this.currentBackground = this.currentBackground + 1;
+		}
+	}
+
+	onGetPreviousBackground () {
+		if (this.currentBackground == 0) {
+			this.currentBackground = this.backgroundList.length - 1;
+		} else {
+			this.currentBackground = this.currentBackground - 1;
+		}
+	}
+
+	onSetCurrentStep (page) {
+		if (this.selectedBackground == null) {
+			toastr.error("Please select your favorite background!");
+		} else {
+			this.currentStep = page;
+		}
+	}
+
+	onShowLoadingPage () {
+		this.loadingPage = true;
+	}
+
+	onUploadToServerSuccess (downloadLink) {
+		this.loadingPage = false;
+		this.downloadLink = downloadLink;
+		this.currentStep = 4;
+	}
+
+	onUploadToServerFail (msg) {
+		this.loadingPage = false;
+		this.currentStep = 2;
+		toastr.error(err);
 	}
 }
 

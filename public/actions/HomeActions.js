@@ -8,12 +8,18 @@ class HomeActions {
 	constructor () {
 		this.generateActions (
 			'queryBackgroundListSuccess',
-			'queryBackgroundListFail'
+			'queryBackgroundListFail',
+			'setSelectedBackground',
+			'getNextBackground',
+			'getPreviousBackground',
+			'setCurrentStep',
+			'uploadToServerSuccess',
+			'uploadToServerFail',
+			'showLoadingPage'
 		)
 	}
 
 	queryBackgroundList () {
-
 		$.ajax({
 			url: config.SERVER_API + 'images/getBackgrounds'
 		})
@@ -23,9 +29,21 @@ class HomeActions {
 		.fail((jqXhr) => {
 			this.actions.queryBackgroundListFail(jqXhr.responseJSON.message);
 		});
-
-
 	}
+
+	uploadToServer (selectedBackground, selectedImage) {
+
+		this.actions.showLoadingPage();
+
+		$.ajax({url: '/api/images/upload', data: {fb_id: selectedImage, background: selectedBackground.name}})
+		.done((data) => {
+			this.actions.uploadToServerSuccess(data.download_link);
+		})
+		.fail((jqXhr) => {
+			this.actions.uploadToServerFail(jqXhr.responseJSON.message);
+		});
+	}
+
 }
 
 export default alt.createActions(HomeActions);

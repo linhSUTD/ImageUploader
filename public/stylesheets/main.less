@@ -81,3 +81,60 @@ footer {
     top: 2px;
   }
 }
+
+.btn-left {
+  position: relative;
+  display: inline-block;
+  float: left;
+}
+
+.btn-right {
+  position: relative;
+  display: block;
+  float: right;
+}
+
+.align-left {
+  position: relative;
+  left: 20px;
+  top: -5px;
+}
+
+.align-right {
+  position: relative;
+  right: 20px;
+  top: -5px;
+}
+
+.selected {
+  background-color: @btn-info-bg;
+}
+
+label {
+  width: 100%;
+  height: 100%;
+  font-size: 160px;
+  line-height: 380px;
+  cursor: pointer;
+  text-shadow: 0px 0px 15px rgb(119, 119, 119);
+  font-family: "Varela Round", sans-serif;
+  z-index: 9;
+  &:hover {
+    color: red;
+  }
+}
+
+.centerBtn {
+  position: relative;
+  top: 150px;
+  border-radius: 50%;
+  border: 0px;
+  &:hover {
+    border: 3px solid red;
+  }
+}
+
+.centerBtn img {
+  width: 100%;
+  height: 100%;
+}
