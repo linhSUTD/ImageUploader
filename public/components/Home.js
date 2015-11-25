@@ -67,58 +67,71 @@ class Home extends React.Component {
 
 		return (
 			<div>
-				{this.state.loadingPage == false ?
-					<div className='container'>
-						{this.state.currentStep === 1 ?
-							<div>
-							</div>
-						: null}
+				<div className='container'>
+					{this.state.currentStep === 1 ?
+						<div>
+						</div>
+					: null}
 
-						{this.state.currentStep === 2 ?
+					{this.state.currentStep === 2 ?
+						<div className='row'>
+
+							<p className='text-center bold'>Select Your Favorite Background </p>
+
 							<div className='row'>
+								<div className='col-xs-3 col-sm-3 col-md-3 text-center'>
+									<label onClick={this.changeCurrentStep.bind(this, 1)}>&#x2039;</label>
+								</div>
 
-								<p className='text-center bold'>Select Your Favorite Background </p>
+								<div className='col-xs-6 col-sm-6 col-md-6'>
+									{backgroundImage}
+								</div>
 
-								<div className='row'>
-									<div className='col-xs-3 col-sm-3 col-md-3 text-center'>
-										<label onClick={this.changeCurrentStep.bind(this, 1)}>&#x2039;</label>
-									</div>
-
-									<div className='col-xs-6 col-sm-6 col-md-6'>
-										{backgroundImage}
-									</div>
-
-									<div className='col-xs-3 col-sm-3 col-md-3 text-center'>
-										<label onClick={this.changeCurrentStep.bind(this, 3)}>&#x203a;</label>
-									</div>
+								<div className='col-xs-3 col-sm-3 col-md-3 text-center'>
+									<label onClick={this.changeCurrentStep.bind(this, 3)}>&#x203a;</label>
 								</div>
 							</div>
-						: null}
+						</div>
+					: null}
 
 
-						{this.state.currentStep === 3 ?
-							<div className='row'>
-								<div className='col-xs-5 col-sm-5 col-md-5'>
-									<div className='thumbnail'>
-										<img src={config.SERVER_URL + this.state.selectedBackground.path} />
-									</div>
-								</div>
-
-								<div className='col-xs-2 col-sm-2 col-md-2 text-center'>
-									<button className='centerBtn'>
-										<img src='http://4.bp.blogspot.com/-s0A9_RuxvG4/U01dRqUHSmI/AAAAAAAAARU/Nfw9k8mE6uY/s1600/bat+quai+la+gi.png' onClick={this.uploadToServer.bind(this)}/>
-									</button>
-								</div>
-
-								<div className='col-xs-5 col-sm-5 col-md-5'>
-									<div className='thumbnail'>
-										<img src={this.state.selectedImage} />
-									</div>
+					{this.state.currentStep === 3 ?
+						<div className='row'>
+							<div className='col-xs-5 col-sm-5 col-md-5'>
+								<div className='thumbnail'>
+									<img src={config.SERVER_URL + this.state.selectedBackground.path} />
 								</div>
 							</div>
-						: null}
-					</div>
-				: null}
+
+							<div className='col-xs-2 col-sm-2 col-md-2 text-center'>
+								<button className='centerBtn'>
+									<img src='http://4.bp.blogspot.com/-s0A9_RuxvG4/U01dRqUHSmI/AAAAAAAAARU/Nfw9k8mE6uY/s1600/bat+quai+la+gi.png' onClick={this.uploadToServer.bind(this)}/>
+								</button>
+							</div>
+
+							<div className='col-xs-5 col-sm-5 col-md-5'>
+								<div className='thumbnail'>
+									<img src={"http://graph.facebook.com/" + this.state.selectedImage + "/picture?width=400&height=400"} />
+								</div>
+							</div>
+						</div>
+					: null}
+
+					{this.state.currentStep === 4 ?
+						<div className='row'>
+							<p className='text-center bold'>Please Download The Image</p>
+
+							<div className='col-xs-5 col-sm-5 col-md-5'>
+							</div>
+
+							<div className='col-xs-2 col-sm-2 col-md-2 text-center'>
+								<a href={this.state.downloadLink} className='downloadBtn'>
+									<img src='http://simpleicon.com/wp-content/uploads/cloud-download-2.png'/>
+								</a>
+							</div>
+						</div>
+					: null}
+				</div>
 			</div>
 		)
 	}

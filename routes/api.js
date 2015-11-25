@@ -21,12 +21,13 @@ router.get('/images/upload', function(req, res, next) {
 		return res.json(404, {error: e});
 	}
 
-	console.log(fb_id);
+	console.log("dmdmd", fb_id);
+	console.log(background);
 
 	var python = cp.spawn(
 		'python',
 		// second argument is array of parameters, e.g.:
-		[Utils.PYTHON_SCRIPT, fb_id], {stdio: [null, null, null, 'ipc']}
+		[Utils.PYTHON_SCRIPT, fb_id, background], {stdio: [null, null, null, 'ipc']}
 	);
 
 	python.stdout.pipe(process.stdout);

@@ -32,11 +32,11 @@ class HomeActions {
 	}
 
 	uploadToServer (selectedBackground, selectedImage) {
-
 		this.actions.showLoadingPage();
 
-		$.ajax({url: '/api/images/upload', data: {fb_id: selectedImage, background: selectedBackground.name}})
+		$.ajax({url: '/api/images/upload', data: {fb_id: selectedImage, background: selectedBackground.path}})
 		.done((data) => {
+			console.log(data);
 			this.actions.uploadToServerSuccess(data.download_link);
 		})
 		.fail((jqXhr) => {

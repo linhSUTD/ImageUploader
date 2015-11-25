@@ -11,7 +11,7 @@ class HomeStore {
 		this.selectedBackground = null;
 		this.backgroundList = [];
 		this.currentBackground = null;
-		this.selectedImage = "http://graph.facebook.com/1359217054097582/picture?width=400&height=400";
+		this.selectedImage = "1359217054097582";
 		this.loadingPage = false;
 		this.downloadLink = null;
 	}
