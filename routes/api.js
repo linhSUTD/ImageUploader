@@ -21,9 +21,6 @@ router.get('/images/upload', function(req, res, next) {
 		return res.json(404, {error: e});
 	}
 
-	console.log("dmdmd", fb_id);
-	console.log(background);
-
 	var python = cp.spawn(
 		'python',
 		// second argument is array of parameters, e.g.:

@@ -28,6 +28,7 @@ class Footer extends React.Component {
 	render () {
 
 		var linh_avatar = this.getAvatarUrl('linhnh@kaist.ac.kr');
+		var tiep_avatar = this.getAvatarUrl('vuhuutiep@gmail.com');
 
 		return (
 			<footer>
@@ -63,6 +64,11 @@ class Footer extends React.Component {
 									</a>
 								</li>
 
+								<li>
+									<a href={'https://www.facebook.com/vuhuutiep'}>
+										<img className='thumb-md' src={tiep_avatar} />
+									</a>
+								</li>
 							</ul>
 						</div>
 					</div>
