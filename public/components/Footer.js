@@ -59,13 +59,13 @@ class Footer extends React.Component {
 
 							<ul className='list-inline'>
 								<li>
-									<a href={'https://www.facebook.com/nguyen.hoanglinh.509'}>
+									<a href={'https://www.facebook.com/nguyen.hoanglinh.509'} target="_blank">
 										<img className='thumb-md' src={linh_avatar} />
 									</a>
 								</li>
 
 								<li>
-									<a href={'https://www.facebook.com/vuhuutiep'}>
+									<a href={'https://www.facebook.com/vuhuutiep'} target="_blank">
 										<img className='thumb-md' src={tiep_avatar} />
 									</a>
 								</li>
