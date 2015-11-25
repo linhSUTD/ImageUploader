@@ -32,7 +32,7 @@ router.get('/images/upload', function(req, res, next) {
 	python.on('exit', function() {
 		var download_link = 'http://localhost:8081/api/images/download/' + fb_id;
 		console.log(download_link);
-		return res.json(200, {download_link: download_link});
+		return res.json(200, {download_link: download_link, image_path: 'images/' + fb_id + '_out.jpg'});
 	});
 
 });

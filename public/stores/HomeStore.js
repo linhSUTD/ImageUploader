@@ -7,13 +7,12 @@ import HomeActions from '../actions/HomeActions';
 class HomeStore {
 	constructor () {
 		this.bindActions(HomeActions);
-		this.currentStep = 2;
-		this.selectedBackground = null;
 		this.backgroundList = [];
 		this.currentBackground = null;
 		this.selectedImage = "1359217054097582";
-		this.loadingPage = false;
 		this.downloadLink = null;
+		this.isDownload = false;
+		this.preview_image = null;
 	}
 
 	onQueryBackgroundListFail (err) {
@@ -21,30 +20,10 @@ class HomeStore {
 	}
 
 	onQueryBackgroundListSuccess (list) {
-		list.map((background) => {
-			background.isSelected = false;
-			if (this.selectedBackground && this.selectedBackground._id == background._id) {
-				background.isSelected = true;
-			}
-		})
-
 		this.backgroundList = list;
-
 		if (this.backgroundList && this.backgroundList.length) {
 			this.currentBackground = 0;
 		}
-	}
-
-
-	onSetSelectedBackground (selected) {
-		this.backgroundList.map((background) => {
-			if (background._id != selected._id) {
-				background.isSelected = false;
-			} else {
-				background.isSelected = true;
-				this.selectedBackground = selected;
-			}
-		})
 	}
 
 	onGetNextBackground () {
@@ -63,27 +42,16 @@ class HomeStore {
 		}
 	}
 
-	onSetCurrentStep (page) {
-		if (this.selectedBackground == null) {
-			toastr.error("Please select your favorite background!");
-		} else {
-			this.currentStep = page;
-		}
-	}
 
-	onShowLoadingPage () {
-		this.loadingPage = true;
-	}
+	onUploadToServerSuccess (data) {
+		this.isDownload = true;
+		this.downloadLink = data.download_link;
+		this.preview_image = data.image_path;
 
-	onUploadToServerSuccess (downloadLink) {
-		this.loadingPage = false;
-		this.downloadLink = downloadLink;
-		this.currentStep = 4;
+		console.log(this.preview_image);
 	}
 
 	onUploadToServerFail (msg) {
-		this.loadingPage = false;
-		this.currentStep = 2;
 		toastr.error(err);
 	}
 }

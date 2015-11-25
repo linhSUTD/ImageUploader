@@ -24,10 +24,6 @@ class Home extends React.Component {
 		HomeActions.queryBackgroundList();
 	}
 
-	handleSelectBackground (background) {
-		HomeActions.setSelectedBackground (background);
-	}
-
 	handleNextBackground () {
 		HomeActions.getNextBackground ();
 	}
@@ -36,29 +32,26 @@ class Home extends React.Component {
 		HomeActions.getPreviousBackground ();
 	}
 
-	changeCurrentStep (page) {
-		HomeActions.setCurrentStep (page);
-	}
-
 	uploadToServer () {
-		HomeActions.uploadToServer (this.state.selectedBackground, this.state.selectedImage);
+		if (this.state.currentBackground == null || this.state.selectedImage == null) {
+			HomeActions.uploadToServerFail ("Missing Background or Personal Images!");
+		} else {
+			HomeActions.uploadToServer (this.state.backgroundList[this.state.currentBackground], this.state.selectedImage);
+		}
 	}
 
 	render () {
 		var backgroundImage = this.state.backgroundList.map((background, index) => {
 			if (index == this.state.currentBackground) {
 				return (
-					<div className='thumbnail'>
-						<img className={background.isSelected ? 'selected' : null} onClick={this.handleSelectBackground.bind(this, background)} src={config.SERVER_URL + background.path} />
-
-						<div className='caption text-center'>
-							<p><strong>Name:</strong> {background.name} </p>
-							<p><strong>Description:</strong> {background.description} </p>
+					<div className="slides">
+						<div className='slide'>
+							<img src={config.SERVER_URL + background.path} />
 						</div>
 
-						<div className='row'>
-							<button type="button" className="btn btn-default pull-left align-left" onClick={this.handlePreviousBackground.bind(this)}>Prev</button>
-							<button type="button" className="btn btn-default pull-right align-right" onClick={this.handleNextBackground.bind(this)}>Next</button>
+						<div className='nav'>
+							<label onClick={this.handlePreviousBackground.bind(this)} className='prev'>&#x2039;</label>
+							<label onClick={this.handleNextBackground.bind(this)} className='next'>&#x203a;</label>
 						</div>
 					</div>
 				)
@@ -68,39 +61,10 @@ class Home extends React.Component {
 		return (
 			<div>
 				<div className='container'>
-					{this.state.currentStep === 1 ?
-						<div>
-						</div>
-					: null}
-
-					{this.state.currentStep === 2 ?
-						<div className='row'>
-
-							<p className='text-center bold'>Select Your Favorite Background </p>
-
-							<div className='row'>
-								<div className='col-xs-3 col-sm-3 col-md-3 text-center'>
-									<label onClick={this.changeCurrentStep.bind(this, 1)}>&#x2039;</label>
-								</div>
-
-								<div className='col-xs-6 col-sm-6 col-md-6'>
-									{backgroundImage}
-								</div>
-
-								<div className='col-xs-3 col-sm-3 col-md-3 text-center'>
-									<label onClick={this.changeCurrentStep.bind(this, 3)}>&#x203a;</label>
-								</div>
-							</div>
-						</div>
-					: null}
-
-
-					{this.state.currentStep === 3 ?
+					{this.state.isDownload == false ?
 						<div className='row'>
 							<div className='col-xs-5 col-sm-5 col-md-5'>
-								<div className='thumbnail'>
-									<img src={config.SERVER_URL + this.state.selectedBackground.path} />
-								</div>
+								{backgroundImage}
 							</div>
 
 							<div className='col-xs-2 col-sm-2 col-md-2 text-center'>
@@ -115,22 +79,22 @@ class Home extends React.Component {
 								</div>
 							</div>
 						</div>
-					: null}
 
-					{this.state.currentStep === 4 ?
+						:
+
 						<div className='row'>
-							<p className='text-center bold'>Please Download The Image</p>
-
-							<div className='col-xs-5 col-sm-5 col-md-5'>
+							<div className='col-xs-3 col-sm-3 col-md-3 text-center'>
 							</div>
 
-							<div className='col-xs-2 col-sm-2 col-md-2 text-center'>
-								<a href={this.state.downloadLink} className='downloadBtn'>
-									<img src='http://simpleicon.com/wp-content/uploads/cloud-download-2.png'/>
+							<div className='col-xs-6 col-sm-6 col-md-6'>
+								<a href={this.state.downloadLink}>
+									<div className='preview'>
+										<img src={config.SERVER_URL + this.state.preview_image} />
+									</div>
 								</a>
 							</div>
 						</div>
-					: null}
+					}
 				</div>
 			</div>
 		)
